@@ -1,0 +1,9 @@
+{
+  "name": "prop-sets",
+  "version": "0.0.1",
+  "description": "Generate every possible combination of a component's state and props",
+  "main": "index.js",
+  "repository": "git@github.com:tvler/prop-sets.git",
+  "author": "Tyler Deitz <tylerdeitz@gmail.com>",
+  "license": "MIT"
+}
