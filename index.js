@@ -5,9 +5,3 @@ const propSets = obj =>
     .map(sets => Object.assign({}, ...sets));
 
 export default propSets;
-
-var combinationsArr = propSets({
-  disabled: [true, false],
-  loading: [true, false],
-  primary: [true, false]
-});
