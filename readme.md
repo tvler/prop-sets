@@ -6,18 +6,18 @@
 propSets({
   disabled: [true, false],
   primary: [true, false],
-  size: ['small', 'medium', 'large']
+  size: ["small", "medium", "large"]
 });
 
 // Is the same as
 
 [
-  { disabled: true, primary: true, size: 'small' },
-  { disabled: true, primary: true, size: 'medium' },
-  { disabled: true, primary: true, size: 'large' },
-  { disabled: true, primary: false, size: 'small' },
+  { disabled: true, primary: true, size: "small" },
+  { disabled: true, primary: true, size: "medium" },
+  { disabled: true, primary: true, size: "large" },
+  { disabled: true, primary: false, size: "small" }
   // ...12 unique combinations
-]
+];
 ```
 
 Don’t just guess what states your code can be in. Test every variation of a component rather than just a few instances you come up with.
@@ -31,7 +31,7 @@ Don’t just guess what states your code can be in. Test every variation of a co
 ### Import
 
 ```js
-import propSets from 'prop-sets'
+import propSets from "prop-sets";
 ```
 
 ### 🔬 Tests

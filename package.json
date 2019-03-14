@@ -3,7 +3,34 @@
   "version": "0.0.1",
   "description": "Generate every possible combination of a component's state and props",
   "main": "index.js",
+  "types": "./index.d.ts",
   "repository": "git@github.com:tvler/prop-sets.git",
   "author": "Tyler Deitz <tylerdeitz@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.11",
+    "babel-jest": "^24.5.0",
+    "jest": "^24.5.0",
+    "typescript": "^3.3.3333"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "tsc --emitDeclarationOnly && babel index.ts --out-file index.js"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-typescript"
+    ],
+    "env": {
+      "test": {
+        "presets": [
+          "@babel/preset-env"
+        ]
+      }
+    }
+  }
 }
