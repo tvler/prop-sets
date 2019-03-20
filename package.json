@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc --emitDeclarationOnly && babel index.ts --out-file index.js"
+    "build": "tsc && rm test.d.ts && babel index.ts --out-file index.js"
   },
   "babel": {
     "presets": [
