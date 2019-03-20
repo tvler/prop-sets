@@ -1,3 +1,6 @@
+import React from "react";
+import TestRenderer from "react-test-renderer";
+
 import propSets from "./index";
 
 describe("propSets", () => {
@@ -46,6 +49,27 @@ describe("propSets", () => {
     const c = [true, false];
     propSets({ a: [], b, c }).forEach(propSet => {
       expect(propSet).not.toHaveProperty("a");
+    });
+  });
+
+  const Button = (props: { color: string; disabled: boolean }) => (
+    <button
+      style={{ backgroundColor: props.disabled ? "gray" : props.color }}
+      disabled={props.disabled}
+    />
+  );
+
+  it("is only gray when disabled, props.color otherwise", () => {
+    const buttonVariations = propSets({
+      disabled: [true, false],
+      color: ["red", "blue"]
+    });
+
+    buttonVariations.forEach(props => {
+      const root = TestRenderer.create(<Button {...props} />).root;
+      const color = root.findByType("button").props.style.backgroundColor;
+
+      expect(color).toBe(props.disabled ? "gray" : props.color);
     });
   });
 });

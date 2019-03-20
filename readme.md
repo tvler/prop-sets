@@ -3,24 +3,40 @@
 `prop-sets` is a library that helps generate every possible instance of a component.
 
 ```js
-propSets({
+const buttonVariations = propSets({
+  color: ['red', 'blue'],
   disabled: [true, false],
-  primary: [true, false],
-  size: ["small", "medium", "large"]
 });
 
-// Is the same as
+// Creates 4 unique combinations of values
 
 [
-  { disabled: true, primary: true, size: "small" },
-  { disabled: true, primary: true, size: "medium" },
-  { disabled: true, primary: true, size: "large" },
-  { disabled: true, primary: false, size: "small" }
-  // ...12 unique combinations
+  { color: 'red',  disabled: true  },
+  { color: 'red',  disabled: false },
+  { color: 'blue', disabled: true  },
+  { color: 'blue', disabled: false },
 ];
 ```
 
-Don’t just guess what states your code can be in. Test every variation of a component rather than just a few instances you come up with.
+Test every variation of a component rather than just a few instances you come up with.
+
+```jsx
+const Button = props => (
+  <button
+    disabled={props.disabled}
+    style={{ backgroundColor: props.disabled ? "gray" : props.color }}
+  />
+);
+
+it("is only gray when disabled, props.color otherwise", () => {
+  buttonVariations.forEach(props => {
+    const root = TestRenderer.create(<Button {...props} />).root;
+    const color = root.findByType("button").props.style.backgroundColor;
+
+    expect(color).toBe(props.disabled ? "gray" : props.color);
+  });
+});
+```
 
 ## Use
 
@@ -33,6 +49,24 @@ Don’t just guess what states your code can be in. Test every variation of a co
 ```js
 import propSets from "prop-sets";
 ```
+
+### API
+
+#### `propSets(object)`
+
+##### Arguments
+
+| Name | Type | Description |
+| - | - | - |
+| `object` | `{ [prop]: Array<value> }` | An object of arrays containing all possible values of the prop |
+
+##### Return
+
+| Name | Type | Description |
+| - | - | - |
+| `object` | `Array<{ [prop]: value }>` | An array of props where every combination of prop values is unique |
+
+## Benefits
 
 ### 🔬 Tests
 

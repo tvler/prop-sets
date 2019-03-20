@@ -3,7 +3,8 @@
     "target": "esnext",
     "moduleResolution": "node",
     "strict": true,
-    "declaration": true
-  },
-  "files": ["index.ts"]
+    "declaration": true,
+    "esModuleInterop": true,
+    "jsx": "preserve"
+  }
 }
