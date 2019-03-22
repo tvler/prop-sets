@@ -52,22 +52,21 @@ describe("propSets", () => {
     });
   });
 
-  const Button = (props: { color: string; disabled: boolean }) => (
-    <button
-      style={{ backgroundColor: props.disabled ? "gray" : props.color }}
-      disabled={props.disabled}
-    />
-  );
+  it("passes readme test", () => {
+    const Button = (props: { color: string; disabled: boolean }) => (
+      <button
+        style={{ backgroundColor: props.disabled ? "gray" : props.color }}
+        disabled={props.disabled}
+      />
+    );
 
-  it("is only gray when disabled, props.color otherwise", () => {
-    const buttonVariations = propSets({
+    propSets({
       disabled: [true, false],
       color: ["red", "blue"]
-    });
-
-    buttonVariations.forEach(props => {
-      const root = TestRenderer.create(<Button {...props} />).root;
-      const color = root.findByType("button").props.style.backgroundColor;
+    }).forEach(props => {
+      const color = TestRenderer.create(<Button {...props} />).root.findByType(
+        "button"
+      ).props.style.backgroundColor;
 
       expect(color).toBe(props.disabled ? "gray" : props.color);
     });

@@ -1,7 +1,7 @@
 {
   "name": "prop-sets",
   "version": "0.0.1",
-  "description": "Generate every possible combination of a component's state and props",
+  "description": "A test tool to help generate every possible instance of a component in JavaScript + TypeScript",
   "main": "index.js",
   "types": "./index.d.ts",
   "repository": "git@github.com:tvler/prop-sets.git",
@@ -24,16 +24,16 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc && rm test.d.ts && babel index.ts --out-file index.js"
+    "build": "tsc --emitDeclarationOnly -d index.ts && babel index.ts --out-file index.js"
   },
   "babel": {
     "presets": [
-      "@babel/preset-typescript"
+      "@babel/env",
+      "@babel/typescript"
     ],
     "env": {
       "test": {
         "presets": [
-          "@babel/preset-env",
           "@babel/react"
         ]
       }

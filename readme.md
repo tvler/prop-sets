@@ -1,39 +1,96 @@
 # `prop-sets`
 
-`prop-sets` is a library that helps generate every possible instance of a component.
+`prop-sets` is a test tool to help generate every possible instance of a component in JavaScript + TypeScript.
 
-```js
-const buttonVariations = propSets({
-  color: ['red', 'blue'],
-  disabled: [true, false],
-});
+<img src="https://user-images.githubusercontent.com/4934193/54775866-1e94f180-4bcc-11e9-9c3a-79f69270adc7.png" width="406" />
 
-// Creates 4 unique combinations of values
+With `prop-sets`, you don't need to outsmart your own code when writing tests. Instead of determining fragile points of failure from particular combinations of inputs, simply generate all possible combinations and assert everything.
 
-[
-  { color: 'red',  disabled: true  },
-  { color: 'red',  disabled: false },
-  { color: 'blue', disabled: true  },
-  { color: 'blue', disabled: false },
-];
-```
+Works with React, Vue, Jest, Mocha, etc. No dependencies.
 
-Test every variation of a component rather than just a few instances you come up with.
+## Benefits
+
+Let's say you have a React component called Button with the props `disabled` and `color`, as well as a test that asserts the button is gray when `disabled` is true and `color` otherwise. Here's how to use `prop-sets` to assert the component renders the correct color:
 
 ```jsx
 const Button = props => (
   <button
     disabled={props.disabled}
-    style={{ backgroundColor: props.disabled ? "gray" : props.color }}
+    style={{
+      backgroundColor: props.disabled ? "gray" : props.color
+    }}
   />
 );
 
-it("is only gray when disabled, props.color otherwise", () => {
-  buttonVariations.forEach(props => {
-    const root = TestRenderer.create(<Button {...props} />).root;
-    const color = root.findByType("button").props.style.backgroundColor;
+it("is gray when disabled, props.color otherwise", () => {
+  propSets({
+    color: ["red", "blue"],
+    disabled: [true, false]
+  }).forEach(props => {
+    const component = <Button {...props} />;
+    const color = getColor(component);
 
     expect(color).toBe(props.disabled ? "gray" : props.color);
+  });
+});
+```
+
+`prop-sets` helps you easily write tests for assertions that are based on multiple input values (in this case, `disabled` and `color`) without greatly increasing the amount of code you have to write.
+
+Without `prop-sets`, this test will need to be expanded to three assertions:
+
+```
+it('is gray when disabled', () => {
+  const component = <Button disabled color="red" />
+  const color = getColor(component);
+
+  expect(color).toBe("gray");
+});
+
+it('is red when props.color is red', () => {
+  const component = <Button color="red" />
+  const color = getColor(component);
+
+  expect(color).toBe("red");
+});
+
+it('is blue when props.color is blue', () => {
+  const component = <Button color="blue" />
+  const color = getColor(component);
+
+  expect(color).toBe("blue");
+});
+```
+
+Because `backgroundColor`'s value is determined by both the `disabled` _and_ `color` prop, we need to have all three assertions to be sure the component behaves as expected. Here are some implementations of `Button` that will only pass certain tests but fail all others.
+
+```jsx
+// Pass 'is gray when disabled', fail all others
+const Button = props => <button style={{ backgroundColor: "gray" }} />;
+
+// Pass 'is red when color is red', fail all others
+const Button = props => <button style={{ backgroundColor: "red" }} />;
+
+// Pass 'is blue when color is blue', fail all others
+const Button = props => <button style={{ backgroundColor: "blue" }} />;
+
+// Pass 'is gray when disabled', 'is red when color is red', fail all others
+const Button = props => (
+  <button style={{ backgroundColor: props.disabled ? "gray" : "red" }} />
+);
+```
+
+The amount of combinations `prop-sets` generates is the [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product) of all the values passed in (`a.length * b.length * c.length * ...`), so as the amount of tested props begins grow, `prop-sets` reduces your test's complexity at an exponential rate.
+
+For example, if you have a component that only behaves a certain way if all 5 of its boolean props are true, the amount of tests you would need to write to formally assert that behavior is **32**. With `prop-sets`, just **one**!:
+
+```js
+it("does something if all props are true, false otherwise", () => {
+  const tf = [true, false];
+  propSets({ a: tf, b: tf, c: tf, d: tf, e: tf }).forEach(props => {
+    expect(/* something */).toBe(
+      props.a && props.b && props.c && props.d && props.e
+    );
   });
 });
 ```
@@ -54,24 +111,36 @@ import propSets from "prop-sets";
 
 #### `propSets(object)`
 
-##### Arguments
+#### Arguments
 
-| Name | Type | Description |
-| - | - | - |
-| `object` | `{ [prop]: Array<value> }` | An object of arrays containing all possible values of the prop |
+| Name     | Type                       | Description                                                |
+| -------- | -------------------------- | ---------------------------------------------------------- |
+| `object` | `{ [prop]: Array<value> }` | An object of arrays containing possible values of the prop |
 
-##### Return
+#### Return
 
-| Name | Type | Description |
-| - | - | - |
-| `object` | `Array<{ [prop]: value }>` | An array of props where every combination of prop values is unique |
+| Type                       | Description                                                        |
+| -------------------------- | ------------------------------------------------------------------ |
+| `Array<{ [prop]: value }>` | An array of props where every combination of prop values is unique |
 
-## Benefits
+#### TypeScript
 
-### 🔬 Tests
+`prop-sets` comes typed but works perfectly fine without TypeScript.
 
-...
+```ts
+declare type ArrayElementType<Arr> = Arr extends (infer ElementType)[]
+  ? ElementType
+  : any;
 
-### 🎨 Styleguides
+declare const propSets: <
+  T extends Readonly<{
+    [key: string]: ReadonlyArray<any>;
+  }>
+>(
+  obj: T
+) => { [key in keyof T]: ArrayElementType<T[key]> }[];
+```
 
-Generate styleguides from a small and easy to update source-of-truth, without having to worry about any improperly-styled combination of props slipping by.
+### License
+
+[MIT](./license)

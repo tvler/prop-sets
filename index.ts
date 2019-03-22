@@ -8,9 +8,11 @@ const propSets = <T extends Readonly<{ [key: string]: ReadonlyArray<any> }>>(
   Object.entries(obj)
     .filter(([_, values]) => values.length)
     .map(([prop, values]) => values.map(value => ({ [prop]: value })))
-    .reduce((sets, set) => sets.map(x => set.map(y => [...x, y])).flat(), <
-      ReadonlyArray<ReadonlyArray<Readonly<{ [key: string]: any }>>>
-    >[[]])
+    .reduce(
+      (sets, set) =>
+        ([] as typeof sets).concat(...sets.map(x => set.map(y => [...x, y]))),
+      <ReadonlyArray<ReadonlyArray<Readonly<{ [key: string]: any }>>>>[[]]
+    )
     .map(sets => Object.assign({}, ...sets));
 
 export default propSets;
