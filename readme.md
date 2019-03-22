@@ -2,7 +2,7 @@
 
 `prop-sets` is a test tool to help generate every possible instance of a component in JavaScript + TypeScript.
 
-<img align="center" src="https://user-images.githubusercontent.com/4934193/54797280-b61c3380-4c10-11e9-81ff-1b76be3cb8ea.png" width="372" />
+<img src="https://user-images.githubusercontent.com/4934193/54797280-b61c3380-4c10-11e9-81ff-1b76be3cb8ea.png" width="372" />
 
 With `prop-sets`, you don't need to outsmart your own code when writing tests. Instead of determining fragile points of failure from particular combinations of inputs, simply generate all possible combinations and assert everything.
 
