@@ -39,23 +39,23 @@ it("is gray when disabled, props.color otherwise", () => {
 
 Without `prop-sets`, this test will need to be expanded to three assertions:
 
-```
-it('is gray when disabled', () => {
-  const component = <Button disabled color="red" />
+```jsx
+it("is gray when disabled", () => {
+  const component = <Button disabled color="red" />;
   const color = getColor(component);
 
   expect(color).toBe("gray");
 });
 
-it('is red when props.color is red', () => {
-  const component = <Button color="red" />
+it("is red when props.color is red", () => {
+  const component = <Button color="red" />;
   const color = getColor(component);
 
   expect(color).toBe("red");
 });
 
-it('is blue when props.color is blue', () => {
-  const component = <Button color="blue" />
+it("is blue when props.color is blue", () => {
+  const component = <Button color="blue" />;
   const color = getColor(component);
 
   expect(color).toBe("blue");
