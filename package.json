@@ -4,9 +4,12 @@
   "description": "A test tool to help generate every possible instance of a component in JavaScript + TypeScript",
   "main": "index.js",
   "types": "./index.d.ts",
-  "repository": "git@github.com:tvler/prop-sets.git",
+  "repository": "https://github.com/tvler/prop-sets",
   "author": "Tyler Deitz <tylerdeitz@gmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tvler/prop-sets/issues"
+  },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
