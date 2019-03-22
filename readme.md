@@ -80,7 +80,7 @@ const Button = props => (
 );
 ```
 
-The amount of combinations `prop-sets` generates is the [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product) of all the values passed in (`a.length * b.length * c.length * ...`), so as the amount of tested props begins grow, `prop-sets` reduces your test's complexity at an exponential rate.
+The amount of combinations `prop-sets` generates is the [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product) of all the values passed in (`a.length * b.length * c.length * ...`), so as the amount of props grows, `prop-sets` reduces your test's complexity at an exponential rate.
 
 For example, if you have a component that only behaves a certain way if all 5 of its boolean props are true, the amount of tests you would need to write to formally assert that behavior is **32**. With `prop-sets`, just **one**!:
 
