@@ -65,16 +65,16 @@ it("is blue when props.color is blue", () => {
 Because `backgroundColor`'s value is determined by both the `disabled` _and_ `color` prop, we need to have all three assertions to be sure the component behaves as expected. Here are some implementations of `Button` that will only pass certain tests but fail all others.
 
 ```jsx
-// Pass 'is gray when disabled', fail all others
+// Passes 'is gray when disabled', fails all others
 const Button = props => <button style={{ backgroundColor: "gray" }} />;
 
-// Pass 'is red when color is red', fail all others
+// Passes 'is red when color is red', fails all others
 const Button = props => <button style={{ backgroundColor: "red" }} />;
 
-// Pass 'is blue when color is blue', fail all others
+// Passes 'is blue when color is blue', fails all others
 const Button = props => <button style={{ backgroundColor: "blue" }} />;
 
-// Pass 'is gray when disabled', 'is red when color is red', fail all others
+// Passes 'is gray when disabled', 'is red when color is red', fails all others
 const Button = props => (
   <button style={{ backgroundColor: props.disabled ? "gray" : "red" }} />
 );
