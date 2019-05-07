@@ -6,6 +6,6 @@ declare type ArrayElementType<Arr> = Arr extends (infer ElementType)[] ? Element
  * @returns An array of objects where every combination of prop values is unique
  */
 declare const propSets: <T extends Readonly<{
-    [key: string]: readonly any[];
+    [key: string]: ReadonlyArray<any>;
 }>>(obj: T) => { [key in keyof T]: ArrayElementType<T[key]>; }[];
 export default propSets;

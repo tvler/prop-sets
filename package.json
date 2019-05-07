@@ -23,7 +23,7 @@
     "jest": "^24.5.0",
     "react": "^16.8.4",
     "react-test-renderer": "^16.8.4",
-    "typescript": "3.4.5"
+    "typescript": "3.3.4000"
   },
   "scripts": {
     "test": "jest",
