@@ -1,6 +1,6 @@
 {
   "name": "prop-sets",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A test tool to help generate every possible instance of a component in JavaScript + TypeScript",
   "main": "index.js",
   "types": "./index.d.ts",
