@@ -23,6 +23,12 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+/**
+ * Returns every possible instance of an object from a given set of prop values
+ *
+ * @param obj - An object of arrays containing possible values of the prop
+ * @returns An array of objects where every combination of prop values is unique
+ */
 var propSets = function propSets(obj) {
   return Object.entries(obj).filter(function (_ref) {
     var _ref2 = _slicedToArray(_ref, 2),
