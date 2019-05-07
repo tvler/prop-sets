@@ -1,7 +1,3 @@
-type ArrayElementType<Arr> = Arr extends (infer ElementType)[]
-  ? ElementType
-  : any;
-
 /**
  * Returns every possible instance of an object from a given set of prop values
  *
@@ -10,7 +6,9 @@ type ArrayElementType<Arr> = Arr extends (infer ElementType)[]
  */
 const propSets = <T extends Readonly<{ [key: string]: ReadonlyArray<any> }>>(
   obj: T
-): Array<{ [key in keyof T]: ArrayElementType<T[key]> }> =>
+): Array<
+  { [key in keyof T]: T[key] extends (infer ElementType)[] ? ElementType : any }
+> =>
   Object.entries(obj)
     .filter(([_, values]) => values.length)
     .map(([prop, values]) => values.map(value => ({ [prop]: value })))

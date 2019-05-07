@@ -1,4 +1,3 @@
-declare type ArrayElementType<Arr> = Arr extends (infer ElementType)[] ? ElementType : any;
 /**
  * Returns every possible instance of an object from a given set of prop values
  *
@@ -7,5 +6,5 @@ declare type ArrayElementType<Arr> = Arr extends (infer ElementType)[] ? Element
  */
 declare const propSets: <T extends Readonly<{
     [key: string]: ReadonlyArray<any>;
-}>>(obj: T) => { [key in keyof T]: ArrayElementType<T[key]>; }[];
+}>>(obj: T) => { [key in keyof T]: T[key] extends (infer ElementType)[] ? ElementType : any; }[];
 export default propSets;

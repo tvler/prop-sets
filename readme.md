@@ -128,17 +128,15 @@ import propSets from "prop-sets";
 `prop-sets` comes typed but works perfectly fine without TypeScript.
 
 ```ts
-declare type ArrayElementType<Arr> = Arr extends (infer ElementType)[]
-  ? ElementType
-  : any;
-
 declare const propSets: <
   T extends Readonly<{
     [key: string]: ReadonlyArray<any>;
   }>
 >(
   obj: T
-) => { [key in keyof T]: ArrayElementType<T[key]> }[];
+) => {
+  [key in keyof T]: T[key] extends (infer ElementType)[] ? ElementType : any
+}[];
 ```
 
 ### License
