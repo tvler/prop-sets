@@ -5,6 +5,6 @@
  * @returns An array of objects where every combination of prop values is unique
  */
 declare const propSets: <T extends Readonly<{
-    [key: string]: ReadonlyArray<any>;
+    [key: string]: readonly any[];
 }>>(obj: T) => { [key in keyof T]: T[key] extends (infer ElementType)[] ? ElementType : any; }[];
 export default propSets;
