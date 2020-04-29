@@ -143,9 +143,9 @@ declare const propSets: <
 
 [Why Don't People Use Formal Methods?](https://hillelwayne.com/post/why-dont-people-use-formal-methods/) by [Hillel Wayne](https://hillelwayne.com/)
 
-[Model checking](https://en.m.wikipedia.org/wiki/Model_checking)
+[Model checking](https://en.wikipedia.org/wiki/Model_checking)
 
-[Combinatorial explosion (state explosion problem)](https://en.m.wikipedia.org/wiki/Combinatorial_explosion)
+[Combinatorial explosion (state explosion problem)](https://en.wikipedia.org/wiki/Combinatorial_explosion)
 
 ## License
 
